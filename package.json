@@ -1,0 +1,23 @@
+{
+  "name": "meet-live",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc && electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hideo54/meet-live.git"
+  },
+  "author": "hideo54",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hideo54/meet-live/issues"
+  },
+  "homepage": "https://github.com/hideo54/meet-live#readme",
+  "devDependencies": {
+    "electron": "^10.1.1"
+  }
+}
