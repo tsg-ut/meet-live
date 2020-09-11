@@ -2,18 +2,5 @@ body {
     color: #eeeeee;
     background-color: #1a1a1a;
     text-align: center;
-}
-
-.logona {
-    font-family: vdl-logona, sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-#title {
-    font-size: 40pt;
-}
-
-#time {
-    font-size: 24pt;
+    font-size: 6vw;
 }
