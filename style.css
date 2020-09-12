@@ -9,15 +9,15 @@
 }
 
 .subject {
-    background: none;
+    background: none !important;
 }
 
 .watermark, .toolbox-background, #videoResolutionLabel, div[role=alert], .videocontainer__hoverOverlay, .displayNameContainer, .vertical-filmstrip .subject {
-    display: none;
+    display: none !important;
 }
 
 #largeVideoContainer[style="display: inline-block; background: rgb(0, 0, 0);"] #largeVideo {
-    display: none;
+    display: none !important;
 }
 
 #largeVideoWrapper {
