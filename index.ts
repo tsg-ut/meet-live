@@ -8,7 +8,7 @@ const customCSS = fs.readFileSync('./style.css', 'utf-8');
 
 const createWindow = () => {
     const width = 1000;
-    const height = width * 0.8;
+    const height = width * 0.7;
     const win = new BrowserWindow({
         width, height,
         transparent: true,
