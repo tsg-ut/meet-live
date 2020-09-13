@@ -3,6 +3,8 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 dotenv.config();
 
+const port = Number(process.env.PORT!);
+
 const meetUrl = process.env.MEET_URL!;
 const focusJS = fs.readFileSync('./focus.js', 'utf-8');
 const customCSS = fs.readFileSync('./style.css', 'utf-8');
@@ -10,6 +12,10 @@ const customCSS = fs.readFileSync('./style.css', 'utf-8');
 import fastify from 'fastify';
 
 const server = fastify({ logger: true });
+
+interface PostParams {
+    name?: string;
+}
 
 const createWindow = () => {
     const width = 1000;
@@ -34,20 +40,23 @@ const createWindow = () => {
                 const name = await contents.executeJavaScript('getCurrentFocus()');
                 reply.send({ name });
             });
-            server.post<{
-                Params: {
-                    name?: string;
-                };
-            }>('/focus/:name', async (request, reply) => {
+            server.post<{ Params: PostParams }>('/focus/:name', async (request, reply) => {
                 const name = request.params.name;
-                try {
-                    await contents.executeJavaScript(`focus('${name}')`);
-                    reply.send({ ok: true });
-                } catch (e) {
-                    reply.send({ ok: false, error: e });
+                if (name) {
+                    try {
+                        await contents.executeJavaScript(`focus('${name}')`);
+                        reply.send({ ok: true });
+                    } catch (e) {
+                        reply.send({ ok: false, error: e });
+                    }
+                } else {
+                    reply.send({
+                        ok: false,
+                        error: 'No name specified.',
+                    });
                 }
             });
-            server.listen(25252);
+            server.listen(port);
             console.log('Focus handling preparation done');
         }, 10 * 1000); // 10s
     });
