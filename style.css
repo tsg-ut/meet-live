@@ -28,3 +28,7 @@
 #largeVideo {
     object-fit: contain !important;
 }
+
+.filmstrip {
+    display: none !important;
+}
