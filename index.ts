@@ -11,6 +11,7 @@ const createWindow = () => {
     const height = width * 0.73;
     const win = new BrowserWindow({
         width, height,
+        title: 'TSG LIVE!',
         transparent: true,
         frame: false,
     });
