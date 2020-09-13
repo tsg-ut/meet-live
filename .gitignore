@@ -1,4 +1,4 @@
 node_modules/
 .env
 *.js
-!banner/adobe-fonts.example.js
+!focus.js
