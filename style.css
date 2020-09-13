@@ -26,5 +26,5 @@
 }
 
 #largeVideo {
-    object-fit: contain;
+    object-fit: contain !important;
 }
