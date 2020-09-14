@@ -14,7 +14,7 @@ for (let i = 0; i < participants.length; i++) {
 const getCurrentFocus = () => {
     const id = participants.filter(e => Array.from(e.classList).includes('videoContainerFocused'))[0].id;
     const name = idToName[id];
-    return name;
+    return [ name, participantNames ];
 };
 
 const focus = name => {

@@ -40,8 +40,19 @@ const createWindow = () => {
         setTimeout(async () => {
             contents.executeJavaScript(focusJS);
             server.get('/focus', async (requeset, reply) => {
-                const name = await contents.executeJavaScript('getCurrentFocus()');
-                reply.send({ name });
+                try {
+                    const [ name, participantNames ] = await contents.executeJavaScript('getCurrentFocus()');
+                    reply.send({
+                        ok: true,
+                        name,
+                        participantNames,
+                    });
+                } catch (e) {
+                    reply.send({
+                        ok: false,
+                        error: e,
+                    });
+                }
             });
             server.post<{ Params: PostParams }>('/focus/:name', async (request, reply) => {
                 const name = request.params.name;
@@ -59,7 +70,7 @@ const createWindow = () => {
                     });
                 }
             });
-            server.listen(port);
+            server.listen(port, '0.0.0.0');
             console.log('Focus handling preparation done');
         }, 10 * 1000); // 10s
     });
