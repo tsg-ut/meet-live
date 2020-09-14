@@ -18,7 +18,7 @@ const getCurrentFocus = () => {
 };
 
 const focus = name => {
-    const currentSpeakerName = getCurrentFocus();
+    const currentSpeakerName = getCurrentFocus()[0];
     if (name !== currentSpeakerName) {
         document.getElementById(nameToId[name]).click();
     }
