@@ -18,8 +18,8 @@ interface PostParams {
 }
 
 const createWindow = () => {
-    const width = 1000;
-    const height = width * 0.73;
+    const height = 720;
+    const width = height * 1.38;
     const win = new BrowserWindow({
         width, height,
         title: 'TSG LIVE!',
