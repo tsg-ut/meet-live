@@ -32,6 +32,9 @@ const createWindow = () => {
     win.loadURL(meetUrl);
     win.show();
     const contents = win.webContents;
+    contents.on('page-title-updated', (event) => {
+        event.preventDefault();
+    });
     contents.on('did-finish-load', () => {
         contents.insertCSS(customCSS);
         setTimeout(async () => {
