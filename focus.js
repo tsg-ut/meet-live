@@ -25,7 +25,8 @@ const getCurrentFocus = () => {
     return [ name, participantNames.map(name => name.toLowerCase()) ];
 };
 
-const focus = name => {
+const focus = _name => {
+    const name = _name.toLowerCase();
     const currentSpeakerName = getCurrentFocus()[0];
     if (name !== currentSpeakerName) {
         document.getElementById(nameToId[name]).click();
