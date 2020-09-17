@@ -61,9 +61,10 @@ const createWindow = () => {
                             }],
                         });
                     } else {
-                        await contents.executeJavaScript(`focus('${text}')`);
-                        const [ name ] = await contents.executeJavaScript('getCurrentFocus()');
-                        if (name !== text) throw 'Failed';
+                        const name = (text as string).toLowerCase();
+                        await contents.executeJavaScript(`focus('${name}')`);
+                        const [ updatedName ] = await contents.executeJavaScript('getCurrentFocus()');
+                        if (updatedName.toLowerCase() !== name) throw 'Failed';
                         reply.send({
                             ...defaultParam,
                             text: `Good! Now ${name}'s screen is on air.`,
