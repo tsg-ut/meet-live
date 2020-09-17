@@ -22,7 +22,7 @@ const getCurrentFocus = () => {
     update();
     const id = participants.filter(e => Array.from(e.classList).includes('videoContainerFocused'))[0].id;
     const name = idToName[id];
-    return [ name, participantNames ];
+    return [ name, participantNames.map(name => name.toLowerCase()) ];
 };
 
 const focus = name => {

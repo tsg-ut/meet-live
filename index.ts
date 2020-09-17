@@ -10,12 +10,10 @@ const focusJS = fs.readFileSync('./focus.js', 'utf-8');
 const customCSS = fs.readFileSync('./style.css', 'utf-8');
 
 import fastify from 'fastify';
+import formbody from 'fastify-formbody';
 
 const server = fastify({ logger: true });
-
-interface PostParams {
-    name?: string;
-}
+server.register(formbody);
 
 const createWindow = () => {
     const height = 950;
@@ -39,34 +37,42 @@ const createWindow = () => {
         contents.insertCSS(customCSS);
         setTimeout(async () => {
             contents.executeJavaScript(focusJS);
-            server.get('/focus', async (requeset, reply) => {
+            server.post('/focus', async (request, reply) => {
+                // @ts-ignore
+                const { text, token } = request.body;
+                console.log(token);
+                const defaultParam = {
+                    response_type: 'in_channel',
+                    username: 'focus',
+                    icon_emoji: ':movie_camera:',
+                };
                 try {
-                    const [ name, participantNames ] = await contents.executeJavaScript('getCurrentFocus()');
-                    reply.send({
-                        ok: true,
-                        name,
-                        participantNames,
-                    });
+                    if (text === '') {
+                        const [ name, participantNames ] = await contents.executeJavaScript('getCurrentFocus()');
+                        reply.send({
+                            ...defaultParam,
+                            blocks: [{
+                                type: 'section',
+                                text: {
+                                    type: 'mrkdwn',
+                                    text: `現在の focus: *${name}*\n現在の参加者一覧: ${
+                                        participantNames.join(', ')}`,
+                                },
+                            }],
+                        });
+                    } else {
+                        await contents.executeJavaScript(`focus('${text}')`);
+                        const [ name ] = await contents.executeJavaScript('getCurrentFocus()');
+                        if (name !== text) throw 'Failed';
+                        reply.send({
+                            ...defaultParam,
+                            text: `Good! Now ${name}'s screen is on air.`,
+                        });
+                    }
                 } catch (e) {
                     reply.send({
-                        ok: false,
-                        error: e,
-                    });
-                }
-            });
-            server.post<{ Params: PostParams }>('/focus/:name', async (request, reply) => {
-                const name = request.params.name;
-                if (name) {
-                    try {
-                        await contents.executeJavaScript(`focus('${name}')`);
-                        reply.send({ ok: true });
-                    } catch (e) {
-                        reply.send({ ok: false, error: e });
-                    }
-                } else {
-                    reply.send({
-                        ok: false,
-                        error: 'No name specified.',
+                        ...defaultParam,
+                        text: `Error: ${e}`,
                     });
                 }
             });
