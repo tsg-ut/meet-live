@@ -60,6 +60,18 @@ const createWindow = () => {
                                 },
                             }],
                         });
+                    } else if (text === 'mute') {
+                        contents.setAudioMuted(true);
+                        reply.send({
+                            ...defaultParam,
+                            text: 'ミュートにしたよ〜',
+                        });
+                    } else if (text === 'unmute') {
+                        contents.setAudioMuted(false);
+                        reply.send({
+                            ...defaultParam,
+                            text: 'ミュートを解除したよ〜',
+                        });
                     } else {
                         const name = (text as string).toLowerCase();
                         await contents.executeJavaScript(`focus('${name}')`);
