@@ -1,32 +1,20 @@
 #largeVideoWrapper {
     box-shadow: none;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-}
-
-#sharedVideo, .tile-view #largeVideoContainer, .remote-videos-container {
-    background: #003F00;
-}
-
-.subject {
-    background: none !important;
 }
 
 .watermark, .toolbox-background, #videoResolutionLabel, div[role=alert], .videocontainer__hoverOverlay, .displayNameContainer, .vertical-filmstrip .subject {
     display: none !important;
 }
 
-#largeVideoContainer[style="display: inline-block; background: rgb(0, 0, 0);"] #largeVideo {
-    display: none !important;
-}
-
 #largeVideoWrapper {
     width: 100% !important;
     height: 100% !important;
+    inset: 0 !important;
 }
 
 #largeVideo {
     object-fit: contain !important;
+    object-position: top !important;
 }
 
 .filmstrip {

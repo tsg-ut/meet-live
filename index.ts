@@ -16,12 +16,12 @@ const server = fastify({ logger: true });
 server.register(formbody);
 
 const createWindow = () => {
-    const height = 950;
-    const width = height * 1.357;
+    const width = 960;
+    const height = 720; // Minimum height to get HD quality
     const win = new BrowserWindow({
         width, height,
         title: 'TSG LIVE!',
-        transparent: true,
+        transparent: false,
         frame: false,
         webPreferences: {
             preload: focusJS,
@@ -94,5 +94,8 @@ const createWindow = () => {
         }, 10 * 1000); // 10s
     });
 };
+
+app.commandLine.appendSwitch('high-dpi-support', '1')
+app.commandLine.appendSwitch('force-device-scale-factor', '1')
 
 app.whenReady().then(createWindow);
