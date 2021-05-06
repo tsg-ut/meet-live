@@ -11,6 +11,7 @@ const customCSS = fs.readFileSync('./style.css', 'utf-8');
 
 import fastify from 'fastify';
 import formbody from 'fastify-formbody';
+import localtunnel from 'localtunnel';
 
 const server = fastify({ logger: true });
 server.register(formbody);
@@ -89,8 +90,10 @@ const createWindow = () => {
                     });
                 }
             });
-            server.listen(port, '0.0.0.0');
-            console.log('Focus handling preparation done');
+            const addr = await server.listen(port, '0.0.0.0');
+            console.log(`Server listening on ${addr}`);
+            const tunnel = await localtunnel({ port, subdomain: process.env.LOCALTUNNEL_SUBDOMAIN! });
+            console.log(`Tunnel ready on ${tunnel.url}`);
         }, 10 * 1000); // 10s
     });
 };
