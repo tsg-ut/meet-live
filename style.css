@@ -8,13 +8,12 @@
 
 #largeVideoWrapper {
     width: 100% !important;
-    height: 100% !important;
+    height: 540px !important;
     inset: 0 !important;
 }
 
 #largeVideo {
     object-fit: contain !important;
-    object-position: top !important;
 }
 
 .filmstrip {

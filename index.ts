@@ -26,6 +26,7 @@ const createWindow = () => {
         frame: false,
         webPreferences: {
             preload: focusJS,
+            backgroundThrottling: false,
         },
     });
     win.loadURL(meetUrl);
