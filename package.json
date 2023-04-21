@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "fastify-formbody": "^5.0.0",
-    "localtunnel": "^2.0.1"
+    "localtunnel": "^2.0.2"
   }
 }
