@@ -23,3 +23,7 @@
 #remoteConnectionMessage { /* 帯域の警告など */
     display: none !important;
 }
+
+div.stage-participant-label {
+    display: none !important;
+}
