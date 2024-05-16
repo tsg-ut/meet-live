@@ -6,10 +6,12 @@ let idToName = {};
 
 const update = () => {
     participants = Array.from(
-            document.getElementsByClassName('videocontainer')
-        ).filter(e => e.id.startsWith('participant'));
+        document.getElementsByClassName('display-video')
+    );
     participantIds = participants.map(p => p.id);
-    participantNames = participants.map(p => document.getElementById(p.id + '_name').innerHTML);
+    participantNames = participants.map(p =>
+        document.getElementById(p.id + '_name').innerHTML.replace("'s screen", '')
+    );
     for (let i = 0; i < participants.length; i++) {
         const name = participantNames[i].toLowerCase();
         const id = participantIds[i];
